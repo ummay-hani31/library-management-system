@@ -1,0 +1,180 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <div class="card shadow">
+
+        <div class="card-header bg-warning text-dark">
+
+            <h3>
+                <i class="bi bi-pencil-square"></i>
+                Edit Student
+            </h3>
+
+        </div>
+
+        <div class="card-body">
+
+            <form method="POST">
+
+                <div class="row">
+
+                    <!-- Student ID -->
+
+                    <div class="col-md-6 mb-3">
+
+                        <label class="form-label">
+                            Student ID
+                        </label>
+
+                        <input
+                            type="text"
+                            name="student_id"
+                            class="form-control"
+                            value="{{ student.student_id }}"
+                            required>
+
+                    </div>
+
+                    <!-- Name -->
+
+                    <div class="col-md-6 mb-3">
+
+                        <label class="form-label">
+                            Student Name
+                        </label>
+
+                        <input
+                            type="text"
+                            name="name"
+                            class="form-control"
+                            value="{{ student.name }}"
+                            required>
+
+                    </div>
+
+                    <!-- Email -->
+
+                    <div class="col-md-6 mb-3">
+
+                        <label class="form-label">
+                            Email
+                        </label>
+
+                        <input
+                            type="email"
+                            name="email"
+                            class="form-control"
+                            value="{{ student.email }}"
+                            required>
+
+                    </div>
+
+                    <!-- Phone -->
+
+                    <div class="col-md-6 mb-3">
+
+                        <label class="form-label">
+                            Phone
+                        </label>
+
+                        <input
+                            type="text"
+                            name="phone"
+                            class="form-control"
+                            value="{{ student.phone }}"
+                            maxlength="10"
+                            minlength="10"
+                            pattern="[0-9]{10}"
+                            title="Phone number must contain exactly 10 digits"
+                            required>
+
+                    </div>
+
+                    <!-- Department -->
+
+                    <div class="col-md-6 mb-3">
+
+                        <label class="form-label">
+                            Department
+                        </label>
+
+                        <select
+                            name="department"
+                            class="form-select"
+                            required>
+
+                            <option value="CSE" {% if student.department=="CSE" %}selected{% endif %}>CSE</option>
+
+                            <option value="IT" {% if student.department=="IT" %}selected{% endif %}>IT</option>
+
+                            <option value="ECE" {% if student.department=="ECE" %}selected{% endif %}>ECE</option>
+
+                            <option value="EEE" {% if student.department=="EEE" %}selected{% endif %}>EEE</option>
+
+                            <option value="Mechanical" {% if student.department=="Mechanical" %}selected{% endif %}>Mechanical</option>
+
+                            <option value="Civil" {% if student.department=="Civil" %}selected{% endif %}>Civil</option>
+
+                        </select>
+
+                    </div>
+
+                    <!-- Year -->
+
+                    <div class="col-md-6 mb-3">
+
+                        <label class="form-label">
+                            Year
+                        </label>
+
+                        <select
+                            name="year"
+                            class="form-select"
+                            required>
+
+                            <option value="1st Year" {% if student.year=="1st Year" %}selected{% endif %}>1st Year</option>
+
+                            <option value="2nd Year" {% if student.year=="2nd Year" %}selected{% endif %}>2nd Year</option>
+
+                            <option value="3rd Year" {% if student.year=="3rd Year" %}selected{% endif %}>3rd Year</option>
+
+                            <option value="4th Year" {% if student.year=="4th Year" %}selected{% endif %}>4th Year</option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+                <button
+                    type="submit"
+                    class="btn btn-success">
+
+                    <i class="bi bi-check-circle"></i>
+
+                    Update Student
+
+                </button>
+
+                <a
+                    href="{{ url_for('students.students') }}"
+                    class="btn btn-secondary">
+
+                    <i class="bi bi-arrow-left"></i>
+
+                    Cancel
+
+                </a>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

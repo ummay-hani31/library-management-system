@@ -1,0 +1,146 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <div class="card shadow">
+
+        <div class="card-header bg-primary text-white">
+
+            <h3>Add Student</h3>
+
+        </div>
+
+        <div class="card-body">
+
+            <form method="POST">
+
+                <div class="row">
+
+                    <div class="col-md-6 mb-3">
+
+                        <label class="form-label">
+                            Student ID
+                        </label>
+
+                        <input
+                            type="text"
+                            name="student_id"
+                            class="form-control"
+                            placeholder="Enter Student ID"
+                            required>
+
+</div>    
+
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+
+                        <label>Student Name</label>
+
+                        <input
+                            type="text"
+                            name="name"
+                            class="form-control"
+                            required>
+
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+
+                        <label>Email</label>
+
+                        <input
+                            type="email"
+                            name="email"
+                            class="form-control"
+                            required>
+
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+
+                        <label>Phone</label>
+
+                        <input
+                            type="text"
+                            name="phone"
+                            class="form-control"
+                            maxlength="10"
+                            minlength="10"
+                            pattern="[0-9]{10}"
+                            title="Phone number must contain exactly 10 digits"
+                            value="{{ request.form.get('phone', '') }}"
+                            required>
+
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+
+                        <label>Department</label>
+
+                        <select
+                            name="department"
+                            class="form-select"
+                            required>
+
+                            <option value="">Select Department</option>
+
+                            <option>CSE</option>
+                            <option>IT</option>
+                            <option>ECE</option>
+                            <option>EEE</option>
+                            <option>Mechanical</option>
+                            <option>Civil</option>
+
+                        </select>
+
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+
+                        <label>Year</label>
+
+                        <select
+                            name="year"
+                            class="form-select"
+                            required>
+
+                            <option value="">Select Year</option>
+
+                            <option>1st Year</option>
+                            <option>2nd Year</option>
+                            <option>3rd Year</option>
+                            <option>4th Year</option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+                <button
+                    class="btn btn-success">
+
+                    Save Student
+
+                </button>
+
+                <a
+                    href="{{ url_for('students.students') }}"
+                    class="btn btn-secondary">
+
+                    Cancel
+
+                </a>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

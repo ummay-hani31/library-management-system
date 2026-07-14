@@ -1,0 +1,233 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container-fluid">
+
+    <h2 class="mb-4">
+
+        <i class="bi bi-bar-chart-fill"></i>
+
+        Reports
+
+    </h2>
+
+    <!-- Summary Cards -->
+
+    <div class="row">
+
+        <div class="col-lg-3 col-md-6 mb-4">
+
+            <div class="card bg-primary text-white shadow">
+
+                <div class="card-body">
+
+                    <h5>Total Transactions</h5>
+
+                    <h2>{{ total_transactions }}</h2>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-lg-3 col-md-6 mb-4">
+
+            <div class="card bg-success text-white shadow">
+
+                <div class="card-body">
+
+                    <h5>Returned Books</h5>
+
+                    <h2>{{ total_returned }}</h2>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-lg-3 col-md-6 mb-4">
+
+            <div class="card bg-warning shadow">
+
+                <div class="card-body">
+
+                    <h5>Issued Books</h5>
+
+                    <h2>{{ total_issued }}</h2>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-lg-3 col-md-6 mb-4">
+
+            <div class="card bg-danger text-white shadow">
+
+                <div class="card-body">
+
+                    <h5>Total Fine</h5>
+
+                    <h2>₹ {{ total_fine }}</h2>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Report Table -->
+
+    <div class="card shadow">
+
+        <div class="card-header bg-dark text-white">
+
+            <h5 class="mb-0">
+
+                Transaction Report
+
+            </h5>
+
+        </div>
+
+        <div class="card-body">
+
+            <div class="table-responsive">
+
+                <table class="table table-bordered table-hover align-middle">
+
+                    <thead class="table-secondary">
+
+                        <tr>
+
+                            <th>ID</th>
+
+                            <th>Student</th>
+
+                            <th>Book</th>
+
+                            <th>Issue Date</th>
+
+                            <th>Due Date</th>
+
+                            <th>Return Date</th>
+
+                            <th>Status</th>
+
+                            <th>Fine</th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                    {% for transaction in transactions %}
+
+                    <tr>
+
+                        <td>{{ transaction.id }}</td>
+
+                        <td>{{ transaction.student.name }}</td>
+
+                        <td>{{ transaction.book.title }}</td>
+
+                        <td>{{ transaction.issue_date.strftime('%d-%m-%Y') }}</td>
+
+                        <td>{{ transaction.due_date.strftime('%d-%m-%Y') }}</td>
+
+                        <td>
+
+                            {% if transaction.return_date %}
+
+                                {{ transaction.return_date.strftime('%d-%m-%Y') }}
+
+                            {% else %}
+
+                                -
+
+                            {% endif %}
+
+                        </td>
+
+                        <td>
+
+                            {% if transaction.status == "Returned" %}
+
+                                <span class="badge bg-success">
+
+                                    Returned
+
+                                </span>
+
+                            {% else %}
+
+                                <span class="badge bg-warning text-dark">
+
+                                    Issued
+
+                                </span>
+
+                            {% endif %}
+
+                        </td>
+
+                        <td>
+
+                            {% if transaction.fine > 0 %}
+
+                                <span class="badge bg-danger">
+
+                                    ₹ {{ transaction.fine }}
+
+                                </span>
+
+                            {% else %}
+
+                                <span class="badge bg-success">
+
+                                    ₹ 0
+
+                                </span>
+
+                            {% endif %}
+
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                    {% if transactions|length == 0 %}
+
+                    <tr>
+
+                        <td colspan="8" class="text-center">
+
+                            No Transactions Found
+
+                        </td>
+
+                    </tr>
+
+                    {% endif %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

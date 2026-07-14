@@ -1,0 +1,145 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+
+<div class="container mt-4">
+
+
+<h2>Add Book</h2>
+
+
+
+<form method="POST">
+
+
+<label>Book ID</label>
+
+<input 
+class="form-control"
+type="text"
+name="book_id"
+placeholder="Example: BK001"
+required>
+
+
+
+<label class="mt-2">
+Book Title
+</label>
+
+<input 
+class="form-control"
+type="text"
+name="title"
+required>
+
+
+
+
+<label class="mt-2">
+Author
+</label>
+
+<input 
+class="form-control"
+type="text"
+name="author"
+required>
+
+
+
+
+<label class="mt-2">
+ISBN
+</label>
+
+<input 
+class="form-control"
+type="text"
+name="isbn">
+
+
+
+
+<label class="mt-2">
+Publisher
+</label>
+
+<input 
+class="form-control"
+type="text"
+name="publisher">
+
+
+
+
+<label class="mt-2">
+Quantity
+</label>
+
+<input 
+class="form-control"
+type="number"
+name="quantity"
+value="1"
+min="1"
+required>
+
+
+
+
+
+<label class="mt-2">
+Category
+</label>
+
+
+<select 
+class="form-control"
+name="category_id"
+required>
+
+
+<option value="">
+Select Category
+</option>
+
+
+{% for category in categories %}
+
+
+<option value="{{category.id}}">
+
+{{category.name}}
+
+</option>
+
+
+{% endfor %}
+
+
+</select>
+
+
+
+
+<br>
+
+
+<button 
+class="btn btn-primary"
+type="submit">
+
+Add Book
+
+</button>
+
+
+</form>
+
+
+</div>
+
+
+{% endblock %}

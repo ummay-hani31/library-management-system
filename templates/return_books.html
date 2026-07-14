@@ -1,0 +1,199 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <h2>
+
+            <i class="bi bi-journal-check"></i>
+
+            Return Books
+
+        </h2>
+
+    </div>
+
+    <!-- Search -->
+
+    <form method="GET"
+          action="{{ url_for('transactions.return_book_list') }}"
+          class="mb-3">
+
+        <div class="input-group">
+
+            <input
+                type="text"
+                class="form-control"
+                name="search"
+                placeholder="Search Student or Book">
+
+            <button class="btn btn-primary">
+
+                <i class="bi bi-search"></i>
+
+                Search
+
+            </button>
+
+        </div>
+
+    </form>
+
+    <div class="card shadow">
+
+        <div class="card-body">
+
+            <table class="table table-hover table-bordered align-middle">
+
+                <thead class="table-dark">
+
+                    <tr>
+
+                        <th>Student ID</th>
+
+                        <th>Student</th>
+
+                        <th>Book</th>
+
+                        <th>Issue Date</th>
+
+                        <th>Due Date</th>
+
+                        <th>Days Left</th>
+
+                        <th>Status</th>
+
+                        <th>Action</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                {% for transaction in transactions %}
+
+                <tr>
+
+                    <td>
+
+                        {{ transaction.student.student_id }}
+
+                    </td>
+
+                    <td>
+
+                        {{ transaction.student.name }}
+
+                    </td>
+
+                    <td>
+
+                        {{ transaction.book.title }}
+
+                    </td>
+
+                    <td>
+
+                        {{ transaction.issue_date.strftime('%d-%m-%Y') }}
+
+                    </td>
+
+                    <td>
+
+                        {{ transaction.due_date.strftime('%d-%m-%Y') }}
+
+                    </td>
+
+                    <td>
+
+                        {% set days = (transaction.due_date - today).days %}
+
+                        {% if days >= 0 %}
+
+                            <span class="badge bg-success">
+
+                                {{ days }} Days
+
+                            </span>
+
+                        {% else %}
+
+                            <span class="badge bg-danger">
+
+                                {{ -days }} Days Late
+
+                            </span>
+
+                        {% endif %}
+
+                    </td>
+
+                    <td>
+
+                        {% if (transaction.due_date - today).days >= 0 %}
+
+                            <span class="badge bg-primary">
+
+                                On Time
+
+                            </span>
+
+                        {% else %}
+
+                            <span class="badge bg-danger">
+
+                                Overdue
+
+                            </span>
+
+                        {% endif %}
+
+                    </td>
+
+                    <td>
+
+                        <a
+                            href="{{ url_for('transactions.return_book', id=transaction.id) }}"
+                            class="btn btn-success btn-sm"
+                            onclick="return confirm('Return this book?')">
+
+                            Return
+
+                        </a>
+
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+                {% if transactions|length == 0 %}
+
+                <tr>
+
+                    <td colspan="8"
+                        class="text-center">
+
+                        No Issued Books Found
+
+                    </td>
+
+                </tr>
+
+                {% endif %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

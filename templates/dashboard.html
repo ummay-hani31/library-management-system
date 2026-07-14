@@ -1,0 +1,292 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container-fluid">
+
+    <h2 class="mb-4">
+
+        <i class="bi bi-speedometer2"></i>
+
+        Dashboard
+
+    </h2>
+
+    <!-- Statistics Cards -->
+
+    <div class="row">
+
+        <div class="col-lg-3 col-md-6 mb-4">
+
+            <div class="card shadow border-0 bg-primary text-white">
+
+                <div class="card-body">
+
+                    <h5>Total Books</h5>
+
+                    <h2>{{ total_books }}</h2>
+
+                    <i class="bi bi-book fs-1"></i>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-lg-3 col-md-6 mb-4">
+
+            <div class="card shadow border-0 bg-success text-white">
+
+                <div class="card-body">
+
+                    <h5>Total Students</h5>
+
+                    <h2>{{ total_students }}</h2>
+
+                    <i class="bi bi-people-fill fs-1"></i>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-lg-3 col-md-6 mb-4">
+
+            <div class="card shadow border-0 bg-warning text-dark">
+
+                <div class="card-body">
+
+                    <h5>Categories</h5>
+
+                    <h2>{{ total_categories }}</h2>
+
+                    <i class="bi bi-tags-fill fs-1"></i>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-lg-3 col-md-6 mb-4">
+
+            <div class="card shadow border-0 bg-danger text-white">
+
+                <div class="card-body">
+
+                    <h5>Issued Books</h5>
+
+                    <h2>{{ issued_books }}</h2>
+
+                    <i class="bi bi-journal-arrow-up fs-1"></i>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Second Row -->
+
+    <div class="row">
+
+        <div class="col-lg-3 col-md-6 mb-4">
+
+            <div class="card shadow border-0 bg-info text-white">
+
+                <div class="card-body">
+
+                    <h5>Returned Books</h5>
+
+                    <h2>{{ returned_books }}</h2>
+
+                    <i class="bi bi-journal-check fs-1"></i>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-lg-9">
+
+            <div class="card shadow">
+
+                <div class="card-header bg-dark text-white">
+
+                    <h5 class="mb-0">
+
+                        Recent Transactions
+
+                    </h5>
+
+                </div>
+
+                <div class="card-body">
+
+                    <table class="table table-hover table-bordered align-middle">
+
+                        <thead class="table-secondary">
+
+                        <tr>
+
+                            <th>Student</th>
+
+                            <th>Book</th>
+
+                            <th>Issue Date</th>
+
+                            <th>Status</th>
+
+                        </tr>
+
+                        </thead>
+
+                        <tbody>
+
+                        {% for transaction in recent_transactions %}
+
+                        <tr>
+
+                            <td>
+
+                                {{ transaction.student.name }}
+
+                            </td>
+
+                            <td>
+
+                                {{ transaction.book.title }}
+
+                            </td>
+
+                            <td>
+
+                                {{ transaction.issue_date }}
+
+                            </td>
+
+                            <td>
+                                                                {% if transaction.status == "Issued" %}
+
+                                <span class="badge bg-warning text-dark">
+
+                                    Issued
+
+                                </span>
+
+                                {% elif transaction.status == "Returned" %}
+
+                                <span class="badge bg-success">
+
+                                    Returned
+
+                                </span>
+
+                                {% else %}
+
+                                <span class="badge bg-secondary">
+
+                                    {{ transaction.status }}
+
+                                </span>
+
+                                {% endif %}
+
+                            </td>
+
+                        </tr>
+
+                        {% endfor %}
+
+                        {% if recent_transactions|length == 0 %}
+
+                        <tr>
+
+                            <td colspan="4" class="text-center text-muted">
+
+                                No recent transactions found.
+
+                            </td>
+
+                        </tr>
+
+                        {% endif %}
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Quick Actions -->
+
+    <div class="row mt-4">
+
+        <div class="col-md-3 mb-3">
+
+            <a href="{{ url_for('books.add_book') }}"
+               class="btn btn-primary w-100 py-3">
+
+                <i class="bi bi-book-half"></i>
+
+                Add Book
+
+            </a>
+
+        </div>
+
+        <div class="col-md-3 mb-3">
+
+            <a href="{{ url_for('students.add_student') }}"
+               class="btn btn-success w-100 py-3">
+
+                <i class="bi bi-person-plus-fill"></i>
+
+                Add Student
+
+            </a>
+
+        </div>
+
+        <div class="col-md-3 mb-3">
+
+            <a href="{{ url_for('categories.categories') }}"
+               class="btn btn-warning w-100 py-3">
+
+                <i class="bi bi-tags-fill"></i>
+
+                Categories
+
+            </a>
+
+        </div>
+
+        <div class="col-md-3 mb-3">
+
+            <a href="{{ url_for('transactions.issue_book') }}"
+               class="btn btn-danger w-100 py-3">
+
+                <i class="bi bi-journal-arrow-up"></i>
+
+                Issue Book
+
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

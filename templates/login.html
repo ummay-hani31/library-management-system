@@ -1,0 +1,115 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="row justify-content-center mt-5">
+
+<div class="col-md-5">
+
+<div class="card shadow-lg border-0">
+
+<div class="card-header bg-primary text-white text-center">
+
+<h3>
+
+<i class="bi bi-book"></i>
+
+Library Login
+
+</h3>
+
+</div>
+
+<div class="card-body">
+
+<form method="POST">
+
+<div class="mb-3">
+
+<label class="form-label">
+
+Username
+
+</label>
+
+<input
+
+type="text"
+
+name="username"
+
+class="form-control"
+
+placeholder="Enter Username"
+
+required>
+
+</div>
+
+<div class="mb-3">
+
+<label class="form-label">
+
+Password
+
+</label>
+
+<input
+
+type="password"
+
+name="password"
+
+class="form-control"
+
+placeholder="Enter Password"
+
+required>
+
+</div>
+
+<div class="d-grid">
+
+<button class="btn btn-primary">
+
+<i class="bi bi-box-arrow-in-right"></i>
+
+Login
+
+</button>
+
+</div>
+
+</form>
+
+</div>
+
+<div class="card-footer text-center">
+
+Default Login
+
+<br>
+
+<b>
+
+Username : admin
+
+</b>
+
+<br>
+
+<b>
+
+Password : admin123
+
+</b>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+{% endblock %}
